@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Liste des réservations</h1>
+    </header>
+
+    <main>
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/catways">Catways</a>
+            <button id="logoutBtn">Déconnexion</button>
+        </nav>
+
+        <p id="message"></p>
+        
+        <div id="reservationsContainer">
+            <p>Chargement des réservations...</p>
+        </div>
+    </main>
+
+    <script src="/javascripts/reservations.js"></script>
+
+</body>
+</html>

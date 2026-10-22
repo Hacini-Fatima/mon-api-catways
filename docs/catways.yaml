@@ -1,0 +1,90 @@
+tags:
+  name: Catways
+  description: Gestion des catways
+
+/catways:
+  get:
+    summary: Lister les catways
+    tags: [Catways]
+    responses:
+      '200':
+        description: Liste des catways
+  post:
+    summary: Créer un catway
+    tags: [Catways]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              catwayNumber: { type: number, example: 36 }
+              type: { type: string, enum: [long, short], example: "long" }
+              catwayState: { type: string, example: "bon état" }
+    responses:
+      '201':
+        description: Catway créé
+
+/catways/{id}:
+  get:
+    summary: Détails d'un catway
+    tags: [Catways]
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    responses:
+      '200':
+        description: Détails du catway
+  put:
+    summary: Remplacer un catway
+    tags: [Catways]
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              catwayNumber: { type: number }
+              type: { type: string }
+              catwayState: { type: string }
+    responses:
+      '200':
+        description: Catway remplacé
+  patch:
+    summary: Modifier partiellement un catway
+    tags: [Catways]
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              catwayState: { type: string, example: "En réparation" }
+    responses:
+      '200':
+        description: Catway modifié
+  delete:
+    summary: Supprimer un catway
+    tags: [Catways]
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema: { type: string }
+    responses:
+      '204':
+        description: Catway supprimé

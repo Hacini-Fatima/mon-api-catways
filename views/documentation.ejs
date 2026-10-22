@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <!-- On charge le CSS global + le CSS spécifique à la doc -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/documentation.css">
+</head>
+<body>
+    <header>
+        <h1>Documentation de l'API</h1>
+        <p>Port de Plaisance Russell - Version 1.0.0</p>
+    </header>
+
+    <main class="doc-container">
+        <nav>
+            <a href="/">Accueil</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/api-docs" target="_blank">Swagger (API interactive)</a>
+        </nav>
+
+        <!-- 1. VUE D'ENSEMBLE -->
+        <section class="doc-section">
+            <h2>1. Vue d'ensemble</h2>
+            <p>Cette API a été développée pour la <strong>capitainerie du Port de Plaisance Russell</strong>. Elle permet de gérer les réservations de catways (appontements pour amarrer les bateaux) de manière sécurisée.</p>
+            
+            <h3>Architecture technique</h3>
+            <ul>
+                <li><strong>Backend</strong> : Node.js avec le framework Express.</li>
+                <li><strong>Base de données</strong> : MongoDB via Mongoose.</li>
+                <li><strong>Authentification</strong> : JSON Web Token (JWT) avec hachage des mots de passe (bcrypt).</li>
+                <li><strong>Frontend</strong> : Moteur de template EJS et JavaScript vanilla.</li>
+            </ul>
+
+            <h3>Authentification</h3>
+            <p>Toutes les routes (sauf <code>POST /users</code> et <code>POST /users/login</code>) nécessitent un token JWT valide, à placer dans le header :</p>
+            <pre><code>Authorization: Bearer &lt;votre_token&gt;</code></pre>
+        </section>
+
+        <!-- 2. TUTORIEL -->
+        <section class="doc-section">
+            <h2>2. Tutoriel</h2>
+            <p>Voici comment utiliser l'API étape par étape pour effectuer une réservation.</p>
+            
+            <h3>Étape 1 : Créer un compte ou se connecter</h3>
+            <p>Connectez-vous pour obtenir un token :</p>
+            <pre><code>POST /users/login
+Content-Type: application/json
+
+{
+    "email": "admin@port-russell.fr",
+    "password": "MotDePasse123"
+}</code></pre>
+
+            <h3>Étape 2 : Récupérer la liste des catways</h3>
+            <p>Une fois le token obtenu, listez les catways disponibles :</p>
+            <pre><code>GET /api/catways
+Authorization: Bearer &lt;votre_token&gt;</code></pre>
+
+            <h3>Étape 3 : Créer une réservation</h3>
+            <p>Réservez un catway en fournissant les dates et les infos du client :</p>
+            <pre><code>POST /api/catways/&lt;ID_DU_CATWAY&gt;/reservations
+Authorization: Bearer &lt;votre_token&gt;
+Content-Type: application/json
+
+{
+    "clientName": "Jack Sparrow",
+    "boatName": "Black Pearl",
+    "checkIn": "2026-11-01T10:00:00Z",
+    "checkOut": "2026-11-10T10:00:00Z"
+}</code></pre>
+        </section>
+
+        <!-- 3. EXEMPLES -->
+        <section class="doc-section">
+            <h2>3. Exemples</h2>
+            <p>Voici des exemples concrets de requêtes et de réponses pour les principales routes.</p>
+            
+            <h3>Exemple : Créer un catway</h3>
+            <p><strong>Requête :</strong></p>
+            <pre><code>POST /api/catways
+Authorization: Bearer &lt;votre_token&gt;
+Content-Type: application/json
+
+{
+    "catwayNumber": 36,
+    "type": "long",
+    "catwayState": "bon état"
+}</code></pre>
+            <p><strong>Réponse (201 Created) :</strong></p>
+            <pre><code>{
+    "_id": "65f1a2b3c4d5e6f7a8b9c0d1",
+    "catwayNumber": 36,
+    "type": "long",
+    "catwayState": "bon état",
+    "createdAt": "2026-10-21T12:00:00.000Z"
+}</code></pre>
+
+            <h3>Exemple : Erreur d'authentification</h3>
+            <p>Si vous oubliez le token, l'API renvoie :</p>
+            <pre><code>GET /api/catways
+
+// Réponse (401 Unauthorized)
+{
+    "message": "Token manquant"
+}</code></pre>
+        </section>
+
+        <!-- 4. GLOSSAIRE -->
+        <section class="doc-section">
+            <h2>4. Glossaire</h2>
+            <div class="glossary-item">
+                <strong>Catway</strong> : Petit appontement (ponton) permettant d'amarrer un bateau.
+            </div>
+            <div class="glossary-item">
+                <strong>API (Application Programming Interface)</strong> : Interface permettant à deux logiciels de communiquer entre eux.
+            </div>
+            <div class="glossary-item">
+                <strong>REST (Representational State Transfer)</strong> : Style d'architecture pour les API web, basé sur les méthodes HTTP (GET, POST, PUT, DELETE).
+            </div>
+            <div class="glossary-item">
+                <strong>JWT (JSON Web Token)</strong> : Standard de sécurité permettant de transmettre des informations de manière sécurisée entre deux parties.
+            </div>
+            <div class="glossary-item">
+                <strong>Endpoint</strong> : URL spécifique d'une API (ex: <code>/api/catways</code>) permettant d'accéder à une ressource.
+            </div>
+            <div class="glossary-item">
+                <strong>MongoDB</strong> : Base de données NoSQL orientée documents.
+            </div>
+        </section>
+    </main>
+</body>
+</html>

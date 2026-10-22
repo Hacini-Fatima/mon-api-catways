@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Tableau de bord</h1>
+        <p id="userInfo"></p>
+    </header>
+
+    <main>
+        <nav>
+            <a href="/catways">Voir la liste des catways</a>
+            <a href="/reservations">Voir la liste des réservations</a>
+            <a href="/documentation">Documentation de l'API</a>
+            <button id="logoutBtn" class="btn-danger">Déconnexion</button>
+        </nav>
+
+        <div class="dashboard-grid">
+            
+            <!-- ==================== SECTION CATWAYS ==================== -->
+            
+            <!-- 1. Créer un catway -->
+            <div class="card">
+                <h3>Créer un catway</h3>
+                <form id="createCatwayForm">
+                    <label>Numéro du catway</label>
+                    <input type="number" name="catwayNumber" required placeholder="Ex: 36">
+                    <label>Type</label>
+                    <select name="type" required>
+                        <option value="short">Short (Court)</option>
+                        <option value="long">Long</option>
+                    </select>
+                    <label>État</label>
+                    <input type="text" name="catwayState" placeholder="Ex: bon état" value="bon état">
+                    <button type="submit">Créer le catway</button>
+                    <div id="msgCreateCatway" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 2. Modifier l'état d'un catway -->
+            <div class="card">
+                <h3>Modifier l'état d'un catway</h3>
+                <form id="updateCatwayForm">
+                    <label>ID du catway (MongoDB)</label>
+                    <input type="text" name="id" required placeholder="Coller l'ID ici">
+                    <label>Nouvel état</label>
+                    <input type="text" name="catwayState" required placeholder="Ex: En réparation">
+                    <button type="submit">Modifier l'état</button>
+                    <div id="msgUpdateCatway" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 3. Supprimer un catway -->
+            <div class="card">
+                <h3>Supprimer un catway</h3>
+                <form id="deleteCatwayForm">
+                    <label>ID du catway (MongoDB)</label>
+                    <input type="text" name="id" required placeholder="Coller l'ID ici">
+                    <button type="submit" class="btn-danger">Supprimer définitivement</button>
+                    <div id="msgDeleteCatway" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 4. Afficher les détails d'un catway -->
+            <div class="card">
+                <h3>Afficher les détails d'un catway</h3>
+                <form id="displayCatwayForm">
+                    <label>ID du catway (MongoDB)</label>
+                    <input type="text" name="id" required placeholder="Coller l'ID ici">
+                    <button type="submit">Afficher les détails</button>
+                </form>
+                <div id="catwayDetailsResult" class="mt-20"></div>
+            </div>
+
+            <!-- ==================== SECTION RÉSERVATIONS ==================== -->
+
+            <!-- 5. Créer une réservation -->
+            <div class="card">
+                <h3>Enregistrer une réservation</h3>
+                <form id="createReservationForm">
+                    <label>ID du catway (MongoDB)</label>
+                    <input type="text" name="catwayId" required placeholder="Coller l'ID du catway ici">
+                    <label>Nom du client</label>
+                    <input type="text" name="clientName" required>
+                    <label>Nom du bateau</label>
+                    <input type="text" name="boatName" required>
+                    <label>Date de début (Arrivée)</label>
+                    <input type="date" name="checkIn" required>
+                    <label>Date de fin (Départ)</label>
+                    <input type="date" name="checkOut" required>
+                    <button type="submit">Enregistrer la réservation</button>
+                    <div id="msgCreateResa" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 6. Supprimer une réservation -->
+            <div class="card">
+                <h3>Supprimer une réservation</h3>
+                <form id="deleteReservationForm">
+                    <label>ID de la réservation (MongoDB)</label>
+                    <input type="text" name="reservationId" required placeholder="Coller l'ID de la réservation">
+                    <button type="submit" class="btn-danger">Supprimer la réservation</button>
+                    <div id="msgDeleteResa" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 7. Afficher les détails d'une réservation -->
+            <div class="card">
+                <h3>Afficher les détails d'une réservation</h3>
+                <form id="displayReservationForm">
+                    <label>ID du catway (MongoDB)</label>
+                    <input type="text" name="catwayId" required placeholder="Coller l'ID du catway">
+                    <label>ID de la réservation (MongoDB)</label>
+                    <input type="text" name="reservationId" required placeholder="Coller l'ID de la réservation">
+                    <button type="submit">Afficher les détails</button>
+                </form>
+                <div id="reservationDetailsResult" class="mt-20"></div>
+            </div>
+
+            <!-- ==================== SECTION UTILISATEURS ==================== -->
+
+            <!-- 8. Créer un utilisateur -->
+            <div class="card">
+                <h3>Créer un utilisateur</h3>
+                <form id="createUserForm">
+                    <label>Nom</label>
+                    <input type="text" name="name" required placeholder="Ex: Capitaine Jack">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="Ex: jack@port.fr">
+                    <label>Mot de passe</label>
+                    <input type="password" name="password" required placeholder="MotDePasse123">
+                    <button type="submit">Créer l'utilisateur</button>
+                    <div id="msgCreateUser" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 9. Modifier un utilisateur -->
+            <div class="card">
+                <h3>Modifier un utilisateur</h3>
+                <form id="updateUserForm">
+                    <label>ID de l'utilisateur (MongoDB)</label>
+                    <input type="text" name="id" required placeholder="Coller l'ID ici">
+                    <label>Nouveau Nom</label>
+                    <input type="text" name="name" placeholder="Laisser vide pour ne pas changer">
+                    <label>Nouvel Email</label>
+                    <input type="email" name="email" placeholder="Laisser vide pour ne pas changer">
+                    <label>Nouveau Mot de passe</label>
+                    <input type="password" name="password" placeholder="Laisser vide pour ne pas changer">
+                    <button type="submit">Modifier l'utilisateur</button>
+                    <div id="msgUpdateUser" class="msg-box"></div>
+                </form>
+            </div>
+
+            <!-- 10. Supprimer un utilisateur -->
+            <div class="card">
+                <h3>Supprimer un utilisateur</h3>
+                <form id="deleteUserForm">
+                    <label>ID de l'utilisateur (MongoDB)</label>
+                    <input type="text" name="id" required placeholder="Coller l'ID ici">
+                    <button type="submit" class="btn-danger">Supprimer définitivement</button>
+                    <div id="msgDeleteUser" class="msg-box"></div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="/javascripts/dashboard.js"></script>
+</body>
+</html>

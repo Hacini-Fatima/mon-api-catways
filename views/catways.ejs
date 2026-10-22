@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <header>
+        <h1>Liste des catways</h1>
+    </header>
+
+    <main>
+        <nav>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/reservations">Réservations</a>
+            <button id="logoutBtn">Déconnexion</button>
+        </nav>
+
+        <table id="catwaysTable">
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Type</th>
+                    <th>État</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <p id="message"></p>
+    </main>
+
+    <script src="/javascripts/catways.js"></script>
+</body>
+</html>

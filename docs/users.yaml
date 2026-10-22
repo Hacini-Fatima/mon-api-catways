@@ -1,0 +1,44 @@
+tags:
+  name: Users
+  description: Gestion des utilisateurs
+
+/users/login:
+  post:
+    summary: Connexion
+    tags: [Users]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email: { type: string, example: "admin@port-russell.fr" }
+              password: { type: string, example: "MotDePasse123" }
+    responses:
+      '200':
+        description: Connexion réussie
+
+/users:
+  post:
+    summary: Créer un utilisateur
+    tags: [Users]
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name: { type: string, example: "Jack Sparrow" }
+              email: { type: string, example: "jack@port.fr" }
+              password: { type: string, example: "MotDePasse123" }
+    responses:
+      '201':
+        description: Utilisateur créé
+  get:
+    summary: Lister les utilisateurs
+    tags: [Users]
+    responses:
+      '200':
+        description: Liste des utilisateurs
