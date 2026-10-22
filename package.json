@@ -5,9 +5,9 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "dev": "nodemon ./bin/www",
-    "test": "nodemon cross-env NODE_ENV=test mocha tests/**/*.test.js --timeout 10000 --exit",
-    "doc": "nodemon jsdoc -c jsdoc.json"
-  },
+    "test": "cross-env NODE_ENV=test mocha tests/**/*.test.js --timeout 10000 --exit",
+    "doc": "jsdoc -c jsdoc.json"
+},
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cookie-parser": "~1.4.4",
