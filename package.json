@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "test": "cross-env NODE_ENV=test mocha tests/**/*.test.js --timeout 10000 --exit",
     "doc": "jsdoc -c jsdoc.json"
